@@ -1,5 +1,24 @@
 import io from std::
 
+//Find the sum of all the multiples of 3 or 5 below 1000
+module problem_01 =
+    let solution_a = () ->
+        let mut sum = 0
+        for i in 1..1000
+            if i % 3 == 0 || i % 5 == 0 then        
+                //io.write("%d{i}\n", stdout)
+                sum = sum + i
+        sum
+
 let main = (args: str[]) ->
     io.write("program: %s{args[0]}\n", stdout)
+    if args.len < 2 then
+        io.write("[exiting] missing arg: please enter the problem identifier (e.g. '01_a')", stderr)
+
+    match args[1] with
+    | "01_a" -> 
+        let result = problem_01.solution_a()
+        io.write("solution = %d{result}\n", stdout)
+    | _ ->
+        io.write("[exiting] unrecognized problem: %s{args[1]}", stderr)
     0
