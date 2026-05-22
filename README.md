@@ -1,0 +1,22 @@
+# Project Euler - FC edition
+
+Project Euler problems. Solve, _by hand_, in FC. Because: having developed the language spec and compiler implementation with heavy AI assistance, we still live in a human's world.
+
+## How to run
+
+```
+./run.sh <2-digit problem number>_<single letter solution letter>
+```
+
+e.g.
+
+```
+./run.sh 01_a
+```
+
+to run "problem 1, solution a"
+
+## Experiential Notes
+* tuple types may have their place after all
+* seq types / iterators are missed
+* it only took problem 01, solution a to find the first serious FC bug (early `return` type agreement)
