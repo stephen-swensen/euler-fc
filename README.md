@@ -1,6 +1,6 @@
 # Project Euler - FC edition
 
-Project Euler problems. Solve, _by hand_, in FC. Because: having developed the language spec and compiler implementation with heavy AI assistance, we still live in a human's world.
+Project Euler problems. Solved, _by hand_, in FC. Because: having developed the language spec and compiler implementation with heavy AI assistance, we still live in a human's world.
 
 ## How to run
 
