@@ -1,0 +1,33 @@
+# Make build output (binary, generated wolf-fc.c, generated install_path.fc)
+/build/
+
+# Installer artifacts (`make installer` output)
+/dist/
+
+# Stray Windows binaries from earlier in-tree builds (run.sh now writes to %TEMP%)
+*.exe
+
+# Object files
+*.o
+
+# Default C compiler output
+a.out
+
+# Generated C from test runs
+tests/cases/**/*.c
+
+# Scratch Dir
+scratch*/
+
+# Editor/IDE
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+*.ppm

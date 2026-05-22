@@ -1,0 +1,5 @@
+import io from std::
+
+let main = (args: str[]) ->
+    io.write("program: %s{args[0]}\n", stdout)
+    0
