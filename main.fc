@@ -30,6 +30,8 @@ module problem_02 =
                 sum = sum + next
 
     //note: this has to be at module level instead of inside solution_b since it is recursive
+    //note: we did confirm that when compiled with the -O2 tail call optimizations are applied
+    //      and the generated is turned into a loop)
     let sum_fibs = (prev_prev:int32, prev:int32, sum:int32) ->
         let next = prev_prev + prev
         if next >= 4_000_000 then
