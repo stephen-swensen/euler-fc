@@ -12,10 +12,11 @@ module problem_01 =
 
 //Find the sum of the even numbered Fibonacci sequence numbers less than 4 million
 module problem_02 =
-    let next_fib = (prev_prev:int32, prev:int32) ->
-        prev_prev + prev
 
     let solution_a = () ->
+        let next_fib = (prev_prev:int32, prev:int32) ->
+            prev_prev + prev
+
         let mut sum = 0
         let mut prev_prev = 1
         let mut prev = 1
