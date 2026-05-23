@@ -29,6 +29,17 @@ module problem_02 =
             else if next % 2 == 0 then
                 sum = sum + next
 
+    //note: this has to be at module level instead of inside solution_b since it is recursive
+    let sum_fibs = (prev_prev:int32, prev:int32, sum:int32) ->
+        let next = prev_prev + prev
+        if next >= 4_000_000 then
+            sum
+        else
+            sum_fibs(prev, next, if next % 2 == 0 then sum + next else sum)
+
+    let solution_b = () ->
+        sum_fibs(1, 1, 0)   
+
 let main = (args: str[]) ->
     io.write("program: %s{args[0]}\n", stdout)
     if args.len < 2 || args[1] == "" then
@@ -36,6 +47,9 @@ let main = (args: str[]) ->
         return -1
 
     match args[1] with
+    | "02_b" -> 
+        let result = problem_02.solution_b()
+        io.write("solution = %d{result}\n", stdout)
     | "02_a" -> 
         let result = problem_02.solution_a()
         io.write("solution = %d{result}\n", stdout)
