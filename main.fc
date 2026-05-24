@@ -43,6 +43,21 @@ module problem_02 =
     let solution_b = () ->
         sum_fibs(1, 1, 0)   
 
+module problem_03 =
+    let num = 600_851_475_143i64
+    //let num = 13195i64
+    let find = (candidate:int64, largestFactor:int64) ->
+        if candidate == largestFactor then
+            largestFactor
+        else if largestFactor % candidate == 0 then
+            find(candidate + 1, largestFactor / candidate)
+        else
+            find(candidate + 1, largestFactor)
+
+    let solution_a = () -> find(2, num)
+
+
+
 let main = (args: str[]) ->
     io.write("program: %s{args[0]}\n", stdout)
     if args.len < 2 || args[1] == "" then
@@ -51,15 +66,18 @@ let main = (args: str[]) ->
     
     let start_ms = sys.time()
     match args[1] with
+    | "03_a" -> 
+        let result = problem_03.solution_a()
+        io.write("solution: %d{result}\n", stdout)
     | "02_b" -> 
         let result = problem_02.solution_b()
-        io.write("solution = %d{result}\n", stdout)
+        io.write("solution: %d{result}\n", stdout)
     | "02_a" -> 
         let result = problem_02.solution_a()
-        io.write("solution = %d{result}\n", stdout)
+        io.write("solution: %d{result}\n", stdout)
     | "01_a" -> 
         let result = problem_01.solution_a()
-        io.write("solution = %d{result}\n", stdout)
+        io.write("solution: %d{result}\n", stdout)
     | _ ->
         io.write("[exiting] unrecognized problem: %s{args[1]}\n", stderr)
     let end_ms = sys.time()
