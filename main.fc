@@ -44,19 +44,30 @@ module problem_02 =
         sum_fibs(1, 1, 0)   
 
 module problem_03 =
-    let num = 600_851_475_143i64
-    //let num = 13195i64
-    let find = (candidate:int64, largestFactor:int64) ->
-        if candidate == largestFactor then
-            largestFactor
-        else if largestFactor % candidate == 0 then
-            find(candidate + 1, largestFactor / candidate)
+    let find_odd = (candidate:int64, largest_factor:int64) ->
+        if candidate > largest_factor / 2 then
+            largest_factor
+        else if largest_factor % candidate == 0 then
+            find_odd(candidate, largest_factor / candidate)
         else
-            find(candidate + 1, largestFactor)
+            find_odd(candidate + 2, largest_factor)
 
-    let solution_a = () -> find(2, num)
+    let find = (largest_factor:int64) ->
+        if largest_factor == 1 then
+            1i64
+        else if largest_factor % 2 == 0 then 
+            find(largest_factor / 2)
+        else
+            find_odd(3, largest_factor)
 
-
+    let solution_a = () -> 
+        let num = 1_600_851_475_143i64
+        let num = 600_851_475_143i64
+        //let num = 13195i64
+        //let num = 100
+        let largest_factor = find(num)
+        if largest_factor == num then 1i64
+        else largest_factor
 
 let main = (args: str[]) ->
     io.write("program: %s{args[0]}\n", stdout)
