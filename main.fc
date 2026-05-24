@@ -1,10 +1,11 @@
 import io from std::
+import sys from std::
 
 //Find the sum of all the multiples of 3 or 5 below 1000
 module problem_01 =
     let solution_a = () ->
         let mut sum = 0
-        for i in 1..1000
+        for i in 1..1_000
             if i % 3 == 0 || i % 5 == 0 then        
                 //io.write("%d{i}\n", stdout)
                 sum = sum + i
@@ -47,7 +48,8 @@ let main = (args: str[]) ->
     if args.len < 2 || args[1] == "" then
         io.write("[exiting] missing arg: please enter the problem identifier (e.g. '01_a')\n", stderr)
         return -1
-
+    
+    let start_ms = sys.time()
     match args[1] with
     | "02_b" -> 
         let result = problem_02.solution_b()
@@ -60,4 +62,6 @@ let main = (args: str[]) ->
         io.write("solution = %d{result}\n", stdout)
     | _ ->
         io.write("[exiting] unrecognized problem: %s{args[1]}\n", stderr)
+    let end_ms = sys.time()
+    io.write("elapsed: %d{end_ms - start_ms}ms\n", stdout)
     0
