@@ -30,44 +30,44 @@ module problem_02 =
             else if next % 2 == 0 then
                 sum = sum + next
 
-    //note: this has to be at module level instead of inside solution_b since it is recursive
-    //note: we did confirm that when compiled with the -O2 tail call optimizations are applied
-    //      and the generated is turned into a loop)
-    let sum_fibs = (prev_prev:int32, prev:int32, sum:int32) ->
-        let next = prev_prev + prev
-        if next >= 4_000_000 then
-            sum
-        else
-            sum_fibs(prev, next, if next % 2 == 0 then sum + next else sum)
+    let solution_b = () -> 
+        //note: we did confirm that when compiled with the -O2 tail call optimizations are applied and the generated is turned into a loop)
+        let sum_fibs = (prev_prev:int32, prev:int32, sum:int32) ->
+            let next = prev_prev + prev
+            if next >= 4_000_000 then
+                sum
+            else
+                sum_fibs(prev, 
+                         next, 
+                         if next % 2 == 0 then sum + next else sum)
 
-    let solution_b = () ->
-        sum_fibs(1, 1, 0)   
+        sum_fibs(1, 1, 0)
 
 module problem_03 =
-    let find_odd = (candidate:int64, largest_factor:int64) ->
-        if candidate > largest_factor / 2 then
-            largest_factor
-        else if largest_factor % candidate == 0 then
-            find_odd(candidate, largest_factor / candidate)
-        else
-            find_odd(candidate + 2, largest_factor)
-
-    let find = (largest_factor:int64) ->
-        if largest_factor == 1 then
-            1i64
-        else if largest_factor % 2 == 0 then 
-            find(largest_factor / 2)
-        else
-            find_odd(3, largest_factor)
 
     let solution_a = () -> 
-        let num = 1_600_851_475_143i64
+        let find_odd = (candidate:int64, largest_factor:int64) ->
+            if candidate > largest_factor / 2 then
+                largest_factor
+            else if largest_factor % candidate == 0 then
+                find_odd(candidate, largest_factor / candidate)
+            else
+                find_odd(candidate + 2, largest_factor)
+
+        let find = (largest_factor:int64) ->
+            if largest_factor == 1 then
+                1i64
+            else if largest_factor % 2 == 0 then 
+                find(largest_factor / 2)
+            else
+                find_odd(3, largest_factor)
+
+        //let num = 13
+        //let num = 1_600_851_475_143i64
         let num = 600_851_475_143i64
         //let num = 13195i64
         //let num = 100
-        let largest_factor = find(num)
-        if largest_factor == num then 1i64
-        else largest_factor
+        find(num)
 
 let main = (args: str[]) ->
     io.write("program: %s{args[0]}\n", stdout)
