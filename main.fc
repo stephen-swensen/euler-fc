@@ -72,8 +72,10 @@ module problem_03 =
         find(num)
 
     let solution_b = () ->
-        let num = 10002342323i64
+        //let num = 10023202342323i64
+        let num = -232
         let factors = factorize(num)
+        defer array_list.destroy(factors)
         io.write("factors(input=%d{num}):\n", stdout)
         for i in 0..factors.len
             io.write("[%d{i}] %d{array_list.get(factors, i)}\n", stdout)
