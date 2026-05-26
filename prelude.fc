@@ -1,0 +1,28 @@
+import array_list from std::data
+
+module prelude =
+    let factorize = (num:int64) ->
+        let mut factors = array_list.make<int64>()
+        let p = &factors
+
+        let find_odd = (candidate:int64, largest_factor:int64) ->
+            if candidate > largest_factor / 2 then
+                array_list.add(p, largest_factor)
+            else if largest_factor % candidate == 0 then
+                array_list.add(p, candidate)
+                find_odd(candidate, largest_factor / candidate)
+            else
+                find_odd(candidate + 2, largest_factor)
+
+        let find = (largest_factor:int64) ->
+            if largest_factor == 1 then
+                array_list.add(p, 1i64)
+            else if largest_factor % 2 == 0 then 
+                array_list.add(p, 2i64)
+                find(largest_factor / 2)
+            else
+                find_odd(3, largest_factor)
+
+        find(num)
+        factors
+        
