@@ -1,0 +1,30 @@
+import array_list from std::data
+
+module prelude =
+    let factorize = (num:int64) -> seq {
+        if num < 2 then
+            return
+
+        let find_odd = (candidate:int64, largest_factor:int64) -> seq {
+            if candidate > largest_factor / 2 then
+                yield largest_factor
+            else if largest_factor % candidate == 0 then
+                yield array_list.add(p, candidate)
+                yield! find_odd(candidate, largest_factor / candidate)
+            else
+                yield! find_odd(candidate + 2, largest_factor)
+        }
+
+        let find = (largest_factor:int64) -> seq {
+            if largest_factor == 1 then
+                return
+            else if largest_factor % 2 == 0 then 
+                yield 2i64
+                yield! find(largest_factor / 2)
+            else
+                yield! find_odd(3, largest_factor)
+        }
+
+        yield! find(num)
+    }
+        
