@@ -87,15 +87,14 @@ module problem_03 =
         //let num = 10023202342323i64
         let num = 33333333333333333i64
         //let num = 600_851_475_143i64
-        let next_factor = init_lazy_factorize(num)
-        let factors = factorize(num)
+        let mut factorize_iterator = mk_factorize_iterator(num)
         let mut prev = default(int64?)
         let mut cur = default(int64?)
         io.write("factors(input=%d{num}; lazy):\n", stdout)
         loop
-            cur = next_factor()
+            cur = factorize_iterator.next(&factorize_iterator.state)
             match cur with
-            | none -> prev!
+            | none -> break prev!
             | some(cur) -> 
                 io.write("%d{cur}\n", stdout)
                 prev = some(cur)
@@ -110,6 +109,9 @@ let main = (args: str[]) ->
     
     let start_ms = sys.time()
     match args[1] with
+    | "03_c" -> 
+        let result = problem_03.solution_c()
+        io.write("solution: %d{result}\n", stdout)
     | "03_b" -> 
         let result = problem_03.solution_b()
         io.write("solution: %d{result}\n", stdout)

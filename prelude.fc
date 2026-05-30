@@ -29,25 +29,38 @@ module prelude =
         find(num)
         factors
 
-    let init_lazy_factorize = (num:int64) ->
-        let mut num = num
-        let mut done = false
-        let candidate = 3i64
+    struct iterator =
+        state: 'a
+        next: ('a*) -> 'b?
 
-        () ->
-            if done || num <= 1 then
-                default(int64?)
-            else if num % 2 == 0 then
-                num = num / 2
-                some(2i64)
-            else
-                loop
-                    if candidate > num / 2 then
-                        done = true
-                        break some(num)
-                    else if num % candidate == 0 then
-                        let tmp = num
-                        num = num / candidate
-                        break some(tmp)
-                    else
-                        candidate = candidate + 2
+    struct factorize_state =
+        num: int64
+        candidate: int64
+        done: bool
+
+    private let next_factor = (state: factorize_state*) ->
+        if state->done || state->num <= 1 then
+            default(int64?)
+        else if state->num % 2 == 0 then
+            state->num = state->num / 2
+            some(2i64)
+        else
+            loop
+                if state->candidate > state->num / 2 then
+                    state->done = true
+                    break some(state->num)
+                else if state->num % state->candidate == 0 then
+                    state->num = state->num / state->candidate
+                    break some(state->candidate)
+                else
+                    state->candidate = state->candidate + 2
+
+    let mk_factorize_iterator = (num: int64) ->
+        iterator {
+            state = factorize_state { 
+                num = num, 
+                candidate = 3i64, 
+                done = false 
+            },
+            next = next_factor
+        }
