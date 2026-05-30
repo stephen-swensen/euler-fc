@@ -9,7 +9,7 @@ module prelude =
         let p = &factors
 
         let find_odd = (candidate:int64, largest_factor:int64) ->
-            if candidate > largest_factor / 2 then
+            if candidate * candidate > largest_factor then
                 array_list.add(p, largest_factor)
             else if largest_factor % candidate == 0 then
                 array_list.add(p, candidate)
@@ -33,7 +33,11 @@ module prelude =
         state: 'a
         next: ('a*) -> 'b?
 
-    struct factorize_state =
+    module iterator =
+        let next = (it:iterator<'a,'b>*) ->
+            it->next(&it->state)
+
+    private struct factorize_state =
         num: int64
         candidate: int64
         done: bool
@@ -46,7 +50,7 @@ module prelude =
             some(2i64)
         else
             loop
-                if state->candidate > state->num / 2 then
+                if state->candidate * state->candidate > state->num then
                     state->done = true
                     break some(state->num)
                 else if state->num % state->candidate == 0 then
