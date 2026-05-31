@@ -87,11 +87,11 @@ module problem_03 =
         //let num = 10023202342323i64
         let num = 33333333333333333i64
         //let num = 600_851_475_143i64
-        let mut it = mk_factorize_iterator(num)
+        let mut it = factorize_iterator.make(num)
         let mut prev = default(int64?)
         io.write("factors(input=%d{num}; lazy):\n", stdout)
         loop
-            let cur = iterator.next(&it)
+            let cur = factorize_iterator.next(&it)
             match cur with
             | none -> break prev!
             | some(cur) -> 

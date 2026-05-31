@@ -29,42 +29,28 @@ module prelude =
         find(num)
         factors
 
-    struct iterator =
-        state: 'a
-        next: ('a*) -> 'b?
-
-    module iterator =
-        let next = (it:iterator<'a,'b>*) ->
-            it->next(&it->state)
-
-    private struct factorize_state =
+    struct factorize_iterator =
         num: int64
         candidate: int64
         done: bool
 
-    private let next_factor = (state: factorize_state*) ->
-        if state->done || state->num <= 1 then
-            default(int64?)
-        else if state->num % 2 == 0 then
-            state->num = state->num / 2
-            some(2i64)
-        else
-            loop
-                if state->candidate * state->candidate > state->num then
-                    state->done = true
-                    break some(state->num)
-                else if state->num % state->candidate == 0 then
-                    state->num = state->num / state->candidate
-                    break some(state->candidate)
-                else
-                    state->candidate = state->candidate + 2
+    module factorize_iterator =
+        let next = (it: factorize_iterator*) ->
+            if it->done || it->num <= 1 then
+                default(int64?)
+            else if it->num % 2 == 0 then
+                it->num = it->num / 2
+                some(2i64)
+            else
+                loop
+                    if it->candidate * it->candidate > it->num then
+                        it->done = true
+                        break some(it->num)
+                    else if it->num % it->candidate == 0 then
+                        it->num = it->num / it->candidate
+                        break some(it->candidate)
+                    else
+                        it->candidate = it->candidate + 2
 
-    let mk_factorize_iterator = (num: int64) ->
-        iterator {
-            state = factorize_state { 
-                num = num, 
-                candidate = 3i64, 
-                done = false 
-            },
-            next = next_factor
-        }
+        let make = (num: int64) ->
+            factorize_iterator { num = num, candidate = 3i64, done = false }
