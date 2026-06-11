@@ -32,11 +32,10 @@ module prelude =
     struct factorize_iterator =
         num: int64
         candidate: int64
-        done: bool
 
     module factorize_iterator =
         let next = (it: factorize_iterator*) ->
-            if it->done || it->num <= 1 then
+            if it->num <= 1 then
                 default(int64?)
             else if it->num % 2 == 0 then
                 it->num = it->num / 2
@@ -44,7 +43,7 @@ module prelude =
             else
                 loop
                     if it->candidate * it->candidate > it->num then
-                        it->done = true
+                        defer it->num = 1 //short circuit next iteration
                         break some(it->num)
                     else if it->num % it->candidate == 0 then
                         it->num = it->num / it->candidate
@@ -52,5 +51,26 @@ module prelude =
                     else
                         it->candidate = it->candidate + 2
 
-        let make = (num: int64) ->
-            factorize_iterator { num = num, candidate = 3i64, done = false }
+        let make = (num:int64) ->
+            factorize_iterator { num = num, candidate = 3i64 }
+
+    let is_prime = (num:int64) ->
+        let mut it = factorize_iterator.make(num)
+        some(num) == factorize_iterator.next(&it)
+
+//    let nth_prime(n:int32) =
+//        match n with
+//        | 1 -> 2
+//        | _ ->
+//            let mut cur = 0
+//            loop
+            
+
+            
+
+        
+
+
+
+
+
