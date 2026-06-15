@@ -99,12 +99,12 @@ module problem_03 =
                 prev = some(cur)
 
 let main = (args: str[]) ->
-    io.write("program: %s{args[0]}\n", stdout)
+    io.write("program: %.32s{args[0]}\n", stdout)
     if args.len < 2 || args[1] == "" then
         io.write("[exiting] missing arg: please enter the problem identifier (e.g. '01_a')\n", stderr)
         return -1
 
-    io.write("problem: %s{args[1]}\n", stdout)
+    io.write("problem: %.32s{args[1]}\n", stdout)
     
     let start_ms = sys.time()
     match args[1] with
@@ -127,7 +127,7 @@ let main = (args: str[]) ->
         let result = problem_01.solution_a()
         io.write("solution: %d{result}\n", stdout)
     | _ ->
-        io.write("[exiting] unrecognized problem: %s{args[1]}\n", stderr)
+        io.write("[exiting] unrecognized problem: %.32s{args[1]}\n", stderr)
     let end_ms = sys.time()
     io.write("elapsed: %d{end_ms - start_ms}ms\n", stdout)
     0
