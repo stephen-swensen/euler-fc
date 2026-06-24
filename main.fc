@@ -78,7 +78,7 @@ module problem_03 =
         let factors = factorize(num)
         defer array_list.destroy(factors)
         io.write("factors(input=%d{num}):\n", stdout)
-        for i in 0..factors.len
+        for i in 0..factors->len
             io.write("[%d{i}] %d{array_list.get(factors, i)}\n", stdout)
 
         array_list.last(factors)
