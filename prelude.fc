@@ -1,4 +1,5 @@
 import array_list from std::data
+import hash_set from std::data
 
 module prelude =
     let factorize = (num:int64) ->
@@ -58,19 +59,42 @@ module prelude =
         let mut it = factorize_iterator.make(num)
         some(num) == factorize_iterator.next(&it)
 
-//    let nth_prime(n:int32) =
-//        match n with
-//        | 1 -> 2
-//        | _ ->
-//            let mut cur = 0
-//            loop
-            
+    let sum_of_squares = (num:int64) ->
+        checked
+            let mut sum = 0i64
+            for n in 1..num+1
+                sum = sum + (n*n)
+            sum
 
-            
-
+    let square_of_sums = (num:int64) ->
+        checked
+            let mut sum = 0i64
+            for n in 1..num+1
+                sum = sum + n
+            sum * sum
         
+    let nth_prime = (target:int32) ->
+        let mut sieve = 
+            hash_set.make(
+                (value:int64) -> value ^ (int64)((uint64)value >> 32),
+                (x:int64, y:int64) -> x == y
+            )
+        defer hash_set.destroy(sieve)
 
+        let is_composite =
+            let sieve = sieve 
+            (candidate:int64) -> hash_set.any(sieve, (p:int64) -> candidate % p == 0)
 
+        let mut i = 3i64
+        let mut n = 1 //2 is the 1st prime
+        loop
+            if !is_composite(i) then
+                n = n + 1
+                if n == target then
+                    break i
+                hash_set.add(&sieve, i)
 
-
+            i = i + 2
+            
+            
 

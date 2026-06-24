@@ -98,6 +98,18 @@ module problem_03 =
                 io.write("%d{cur}\n", stdout)
                 prev = some(cur)
 
+module problem_06 =
+    let solution_a = () ->
+        checked
+            let num = 100
+            square_of_sums(num) - sum_of_squares(num)
+
+module problem_07 =
+    let solution_a = () ->
+        let num = 10_001
+        nth_prime(num)
+        
+
 let main = (args: str[]) ->
     io.write("program: %.32s{args[0]}\n", stdout)
     if args.len < 2 || args[1] == "" then
@@ -108,6 +120,12 @@ let main = (args: str[]) ->
     
     let start_ms = sys.time()
     match args[1] with
+    | "07_a" -> 
+        let result = problem_07.solution_a()
+        io.write("solution: %d{result}\n", stdout)
+    | "06_a" -> 
+        let result = problem_06.solution_a()
+        io.write("solution: %d{result}\n", stdout)
     | "03_c" -> 
         let result = problem_03.solution_c()
         io.write("solution: %d{result}\n", stdout)
