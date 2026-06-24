@@ -1,5 +1,6 @@
 import array_list from std::data
 import hash_set from std::data
+import io from std::
 
 module prelude =
     let factorize = (num:int64) ->
@@ -81,15 +82,21 @@ module prelude =
             )
         defer hash_set.destroy(sieve)
 
+        //dangling pointer error, fix later
+        //let is_composite =
+        //    let sieve = sieve 
+        //    (candidate:int64) -> hash_set.any(sieve, (p:int64) -> candidate % p == 0)
+
+        let sieve_snapshot = sieve 
         let is_composite =
-            let sieve = sieve 
-            (candidate:int64) -> hash_set.any(sieve, (p:int64) -> candidate % p == 0)
+            (candidate:int64) -> hash_set.any(sieve_snapshot, (p:int64) -> candidate % p == 0)
 
         let mut i = 3i64
         let mut n = 1 //2 is the 1st prime
         loop
             if !is_composite(i) then
                 n = n + 1
+                io.write("n=%i{n}, i=%i{i}\n", stdout)
                 if n == target then
                     break i
                 hash_set.add(&sieve, i)
