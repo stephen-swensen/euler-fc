@@ -1,6 +1,5 @@
 import array_list from std::data
-import hash_set from std::data
-import io from std::
+//import io from std::
 
 module prelude =
     let factorize = (num:int64) ->
@@ -73,12 +72,13 @@ module prelude =
             sum * sum
         
     let nth_prime = (target:int32) ->
-        let primes =
-            array_list.make<int64>()
+        let primes = array_list.make<int64>()
         defer array_list.destroy(primes)
 
-        let is_composite =
-            (candidate:int64) -> array_list.any(primes, (p:int64) -> candidate % p == 0)
+        let is_composite = (candidate:int64) -> 
+            match array_list.try_find(primes, (p:int64) -> p * p > candidate || candidate % p == 0) with
+            | some(p) -> candidate % p == 0
+            | none -> false
 
         let mut i = 3i64
         let mut n = 1 //2 is the 1st prime
