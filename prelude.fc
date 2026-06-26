@@ -60,14 +60,14 @@ module prelude =
     let sum_of_squares = (num:int64) ->
         checked
             let mut sum = 0i64
-            for n in 1..num+1
+            for n in 1..num+1 do
                 sum = sum + (n*n)
             sum
 
     let square_of_sums = (num:int64) ->
         checked
             let mut sum = 0i64
-            for n in 1..num+1
+            for n in 1..num+1 do
                 sum = sum + n
             sum * sum
         
