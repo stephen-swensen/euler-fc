@@ -2,12 +2,12 @@ import array_list from std::data
 //import io from std::
 
 module prelude =
-    let factorize = (num:int64) ->
-        let factors = array_list.make<int64>()
+    let factorize = (num:i64) ->
+        let factors = array_list.make<i64>()
         if num < 2 then
             return factors
 
-        let find_odd = (candidate:int64, largest_factor:int64) ->
+        let find_odd = (candidate:i64, largest_factor:i64) ->
             if candidate * candidate > largest_factor then
                 array_list.add(factors, largest_factor)
             else if largest_factor % candidate == 0 then
@@ -16,7 +16,7 @@ module prelude =
             else
                 find_odd(candidate + 2, largest_factor)
 
-        let find = (largest_factor:int64) ->
+        let find = (largest_factor:i64) ->
             if largest_factor == 1 then
                 return
             else if largest_factor % 2 == 0 then 
@@ -29,13 +29,13 @@ module prelude =
         factors
 
     struct factorize_iterator =
-        num: int64
-        candidate: int64
+        num: i64
+        candidate: i64
 
     module factorize_iterator =
         let next = (it: factorize_iterator*) ->
             if it->num <= 1 then
-                default(int64?)
+                default(i64?)
             else if it->num % 2 == 0 then
                 it->num = it->num / 2
                 some(2i64)
@@ -50,33 +50,33 @@ module prelude =
                     else
                         it->candidate = it->candidate + 2
 
-        let make = (num:int64) ->
+        let make = (num:i64) ->
             factorize_iterator { num = num, candidate = 3i64 }
 
-    let is_prime = (num:int64) ->
+    let is_prime = (num:i64) ->
         let mut it = factorize_iterator.make(num)
         some(num) == factorize_iterator.next(&it)
 
-    let sum_of_squares = (num:int64) ->
+    let sum_of_squares = (num:i64) ->
         checked
             let mut sum = 0i64
             for n in 1..num+1 do
                 sum = sum + (n*n)
             sum
 
-    let square_of_sums = (num:int64) ->
+    let square_of_sums = (num:i64) ->
         checked
             let mut sum = 0i64
             for n in 1..num+1 do
                 sum = sum + n
             sum * sum
         
-    let nth_prime = (target:int32) ->
-        let primes = array_list.make<int64>()
+    let nth_prime = (target:i32) ->
+        let primes = array_list.make<i64>()
         defer array_list.destroy(primes)
 
-        let is_composite = (candidate:int64) -> 
-            match array_list.try_find(primes, (p:int64) -> p * p > candidate || candidate % p == 0) with
+        let is_composite = (candidate:i64) ->
+            match array_list.try_find(primes, (p:i64) -> p * p > candidate || candidate % p == 0) with
             | some(p) -> candidate % p == 0
             | none -> false
 
