@@ -107,12 +107,12 @@ module prelude =
         | _ when num <= 2 -> 0i64
         | _ ->
             array_list.add(primes, 2i64)
-            let mut i = 3i64
-            loop
+            let sum = (i:i64) ->
                 if i >= num then
-                    break array_list.fold_left(primes, 0i64, (x:i64,y:i64) -> x + y)
-                else if !is_composite(i) then
-                    array_list.add(primes, i)
-                i = i + 2
+                    array_list.fold_left(primes, 0i64, (x:i64,y:i64) -> x + y)
+                else
+                    if !is_composite(i) then
+                        array_list.add(primes, i)
+                    sum(i + 2)
+            sum(3i64)
             
-
