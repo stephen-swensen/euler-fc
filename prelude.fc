@@ -92,5 +92,27 @@ module prelude =
 
             i = i + 2
             
+    //Sum the primes below num
+    let sum_of_primes = (num:i32) ->
+        let primes = array_list.make<i64>()
+        defer array_list.destroy(primes)
+
+        let is_composite = (candidate:i64) ->
+            match array_list.try_find(primes, (p:i64) -> p * p > candidate || candidate % p == 0) with
+            | some(p) -> candidate % p == 0
+            | none -> false
+
+        match num with
+        | 3 -> 2i64
+        | _ when num <= 2 -> 0i64
+        | _ ->
+            array_list.add(primes, 2i64)
+            let mut i = 3i64
+            loop
+                if i >= num then
+                    break array_list.fold_left(primes, 0i64, (x:i64,y:i64) -> x + y)
+                else if !is_composite(i) then
+                    array_list.add(primes, i)
+                i = i + 2
             
 

@@ -120,6 +120,9 @@ let main = (args: str[]) ->
     
     let start_ms = sys.time()
     match args[1] with
+    | "10_a" -> 
+        let result = sum_of_primes(2_000_000)
+        io.write("solution: %d{result}\n", stdout)
     | "07_a" -> 
         let result = problem_07.solution_a()
         io.write("solution: %d{result}\n", stdout)
