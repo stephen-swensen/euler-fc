@@ -109,7 +109,7 @@ module prelude =
             array_list.add(primes, 2i64)
             let sum = (i:i64) ->
                 if i >= num then
-                    array_list.fold_left(primes, 0i64, (x:i64,y:i64) -> x + y)
+                    array_list.fold_left(primes, 0i64, (x:i64,y:i64) -> checked x + y)
                 else
                     if !is_composite(i) then
                         array_list.add(primes, i)
