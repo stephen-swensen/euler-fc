@@ -108,7 +108,10 @@ module problem_07 =
     let solution_a = () ->
         let num = 10_001
         nth_prime(num)
-        
+
+module problem_10 =
+    let solution_a = () ->
+        sum_of_primes(2_000_000)
 
 let main = (args: str[]) ->
     io.write("program: %.32s{args[0]}\n", stdout)
@@ -121,7 +124,7 @@ let main = (args: str[]) ->
     let start_ms = sys.time()
     match args[1] with
     | "10_a" -> 
-        let result = sum_of_primes(2_000_000)
+        let result = problem_10.solution_a()
         io.write("solution: %d{result}\n", stdout)
     | "07_a" -> 
         let result = problem_07.solution_a()
