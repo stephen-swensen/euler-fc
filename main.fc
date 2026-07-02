@@ -78,7 +78,7 @@ module problem_03 =
         let factors = factorize(num)
         defer array_list.destroy(factors)
         io.write("factors(input=%d{num}):\n", stdout)
-        for i in 0..factors->len do
+        for i in 0..factors.len do
             io.write("[%d{i}] %d{array_list.get(factors, i)}\n", stdout)
 
         array_list.last(factors)
@@ -112,6 +112,48 @@ module problem_07 =
 module problem_10 =
     let solution_a = () ->
         sum_of_primes(2_000_000)
+
+module problem_13 =
+    import array_list from std::data
+    import text from std::
+
+    private let parse = (path:const str) ->
+        let numbers = array_list.make<array_list<u8>*>()
+        array_list.add(numbers, array_list.make<u8>())
+        let file = io.open(path, "r")!
+        defer io.close(file)
+        loop
+            match io.read_char(file) with
+            | none -> break numbers
+            | some(c) when c == '\r' -> continue
+            | some(c) when c == '\n' ->
+                array_list.add(numbers, array_list.make<u8>())
+            | some(c) ->
+                let cur = array_list.last(numbers)
+                array_list.add(cur, c - '0')
+
+    //numbers should have at least 1 element all of the same len
+    private let sum = (numbers: array_list<array_list<u8>*>*) ->
+        let tally = array_list.make<i32>()
+        let mut col_pos = array_list.len(array_list.get(numbers, 0)) - 1
+        loop
+            if col_pos < 0 then
+                break tally
+            let mut col_sum = 0
+            let mut row_pos = 0
+            loop
+                //if row_pos >= array_list.len(numbers)
+                    
+                let row = array_list.get(numbers, row_pos)
+                col_sum = col_sum + array_list.get(row, col_pos)
+                row_pos = row_pos + 1
+
+            col_pos = col_pos - 1
+
+
+
+
+
 
 let main = (args: str[]) ->
     io.write("program: %.32s{args[0]}\n", stdout)

@@ -1,0 +1,2 @@
+*.fc
+/usr/local/share/fcc/stdlib/*.fc

@@ -34,21 +34,21 @@ module prelude =
 
     module factorize_iterator =
         let next = (it: factorize_iterator*) ->
-            if it->num <= 1 then
+            if it.num <= 1 then
                 default(i64?)
-            else if it->num % 2 == 0 then
-                it->num = it->num / 2
+            else if it.num % 2 == 0 then
+                it.num = it.num / 2
                 some(2i64)
             else
                 loop
-                    if it->candidate * it->candidate > it->num then
-                        defer it->num = 1 //short circuit next iteration
-                        break some(it->num)
-                    else if it->num % it->candidate == 0 then
-                        it->num = it->num / it->candidate
-                        break some(it->candidate)
+                    if it.candidate * it.candidate > it.num then
+                        defer it.num = 1 //short circuit next iteration
+                        break some(it.num)
+                    else if it.num % it.candidate == 0 then
+                        it.num = it.num / it.candidate
+                        break some(it.candidate)
                     else
-                        it->candidate = it->candidate + 2
+                        it.candidate = it.candidate + 2
 
         let make = (num:i64) ->
             factorize_iterator { num = num, candidate = 3i64 }
