@@ -123,7 +123,7 @@ module problem_13 =
         let file = io.open(path, "r")!
         defer io.close(file)
         loop
-            match io.read_char(file) with
+            match io.read_char(file)! with
             | none -> break numbers
             | some(c) when c == '\r' -> continue
             | some(c) when c == '\n' ->
