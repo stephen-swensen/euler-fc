@@ -1,5 +1,5 @@
 import array_list from std::data
-//import io from std::
+import io from std::
 
 module prelude =
     let factorize = (num:i64) ->
@@ -115,4 +115,16 @@ module prelude =
                         array_list.add(primes, i)
                     sum(i + 2)
             sum(3i64)
-            
+
+    let factorial = (n:i64) ->
+        let mut n = n
+        let mut product = 1i64
+        loop checked
+            match n with
+            | 1 -> 
+                io.write("(break): n=%d{n}, product=%d{product}\n", stdout)
+                break product
+            | _ -> 
+                io.write("(non-break): n=%d{n}, product=%d{product}\n", stdout)
+                defer n = n - 1
+                product = n * product 
