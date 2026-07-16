@@ -1,2 +1,7 @@
 *.fc
-/usr/local/share/fcc/stdlib/*.fc
+/usr/local/share/fcc/stdlib/io.fc
+/usr/local/share/fcc/stdlib/math.fc
+/usr/local/share/fcc/stdlib/text.fc
+/usr/local/share/fcc/stdlib/data.fc
+/usr/local/share/fcc/stdlib/sys.fc
+/usr/local/share/fcc/stdlib/wideint.fc

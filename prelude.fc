@@ -1,4 +1,5 @@
 import array_list from std::data
+import * from std::wideint
 import io from std::
 
 module prelude =
@@ -116,15 +117,23 @@ module prelude =
                     sum(i + 2)
             sum(3i64)
 
-    let factorial = (n:i64) ->
+    let factorial = (n:u64) ->
         let mut n = n
-        let mut product = 1i64
+        let mut product = u1024.from_u64(1u64)
         loop checked
             match n with
             | 1 -> 
-                io.write("(break): n=%d{n}, product=%d{product}\n", stdout)
+                let p_str = u1024.to_str(product)
+                defer free(p_str)
+                io.write(alloca(
+                    "(break): n=%d{n}, product=%s{p_str}\n")
+                , stdout)
                 break product
             | _ -> 
-                io.write("(non-break): n=%d{n}, product=%d{product}\n", stdout)
-                defer n = n - 1
-                product = n * product 
+                let p_str = u1024.to_str(product)
+                defer free(p_str)
+                io.write(alloca(
+                    "(non-break): n=%d{n}, product=%s{p_str}\n"
+                ), stdout)
+                defer n = n - 1u64
+                product = u1024.checked_mul(u1024.from_u64(n), product)

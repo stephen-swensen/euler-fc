@@ -1,5 +1,6 @@
 import io from std::
 import sys from std::
+import * from std::wideint
 import * from prelude
 
 //Find the sum of all the multiples of 3 or 5 below 1000
@@ -152,7 +153,7 @@ module problem_13 =
 
 module problem_20 =
     let solution_a =  () ->
-        factorial(100)
+        factorial(100u64)
 
 let main = (args: str[]) ->
     io.write("program: %.32s{args[0]}\n", stdout)
@@ -166,7 +167,9 @@ let main = (args: str[]) ->
     match args[1] with
     | "20_a" -> 
         let result = problem_20.solution_a()
-        io.write("solution: %d{result}\n", stdout)
+        let r_str = u1024.to_str(result)
+        defer free(r_str)
+        io.write(alloca("solution: %s{r_str}\n"), stdout)
     | "10_a" -> 
         let result = problem_10.solution_a()
         io.write("solution: %d{result}\n", stdout)
