@@ -119,21 +119,21 @@ module prelude =
 
     let factorial = (n:u64) ->
         let mut n = n
-        let mut product = u1024.from_u64(1u64)
+        let mut product = uwide<544>.from_u64(1u64)
         loop checked
             match n with
             | 1 -> 
-                let p_str = u1024.to_str(product)
+                let p_str = uwide.to_str(product)
                 defer free(p_str)
                 io.write(alloca(
                     "(break): n=%d{n}, product=%s{p_str}\n")
                 , stdout)
                 break product
             | _ -> 
-                let p_str = u1024.to_str(product)
+                let p_str = uwide.to_str(product)
                 defer free(p_str)
                 io.write(alloca(
                     "(non-break): n=%d{n}, product=%s{p_str}\n"
                 ), stdout)
                 defer n = n - 1u64
-                product = u1024.checked_mul(u1024.from_u64(n), product)
+                product = uwide.checked_mul(uwide<544>.from_u64(n), product)

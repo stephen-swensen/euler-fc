@@ -167,7 +167,7 @@ let main = (args: str[]) ->
     match args[1] with
     | "20_a" -> 
         let result = problem_20.solution_a()
-        let r_str = u1024.to_str(result)
+        let r_str = uwide.to_str(result)
         defer free(r_str)
         io.write(alloca("solution: %s{r_str}\n"), stdout)
     | "10_a" -> 
